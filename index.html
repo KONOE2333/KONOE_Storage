@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>姚嘉妮的网页练习</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9a1a1;
+    }
+
+    /* 侧边导航栏（电脑） */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 180px;
+      height: 100%;
+      background-color: #333;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .sidebar a {
+      display: block;
+      width: 100%;
+      text-align: center;
+      color: #f9a1a1;
+      padding: 15px;
+      text-decoration: none;
+      font-size: 18px;
+    }
+
+    .sidebar a:hover {
+      background-color: #ffb6c1;
+      color: black;
+    }
+
+    /* 主体内容区域 */
+    .main-content {
+      margin-left: 200px;
+      padding: 30px;
+    }
+
+    header, footer {
+      background-color: #333;
+      color: #f9a1a1;
+      text-align: center;
+      padding: 20px;
+    }
+
+    section {
+      background-color: rgb(255, 215, 207);
+      margin-bottom: 30px;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      color: #444;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      font-size: 16px;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #f8c8dc;
+      color: #333;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9e6ee;
+    }
+
+    tr:hover {
+      background-color: #f8cbdc;
+      cursor: pointer;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-width: 300px;
+      margin: auto;
+    }
+
+    input, textarea, button {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      background-color: #333333;
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #555555;
+    }
+
+    /* 关于我模块样式 */
+    .about-section {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: rgb(255, 215, 207);
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      flex-wrap: wrap;
+    }
+
+    .about-text {
+      flex: 1;
+      padding-right: 20px;
+      min-width: 280px;
+    }
+
+    .about-text h2 {
+      font-size: 36px;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .about-text p {
+      font-size: 18px;
+      line-height: 1.6;
+      color: #555;
+    }
+
+    .about-photo {
+      flex: 1;
+      text-align: center;
+      min-width: 280px;
+    }
+
+    .about-photo img {
+      width: 100%;
+      max-width: 600px;
+      border-radius: 10px;
+    }
+
+    /* 留言板块 */
+    @keyframes sparkle {
+        0% { box-shadow: 0 0 5px #ff69b4; }
+        50% { box-shadow: 0 0 15px #ffb6c1; }
+        100% { box-shadow: 0 0 5px #ff69b4; }
+    }
+    
+    @keyframes typing {
+        from { width: 0 }
+        to { width: 100% }
+    }
+    
+    @keyframes blink {
+        0%, 100% { border-color: transparent }
+        50% { border-color: #d63384 }
+    }
+    
+    #animated-title {
+        animation: typing 3s steps(30, end), blink 0.7s step-end infinite;
+    }
+
+
+    /* 响应式设计（手机） */
+    @media (max-width: 768px) {
+      .sidebar {
+        position: static;
+        width: 100%;
+        height: auto;
+        flex-direction: row;
+        justify-content: center;
+        padding: 10px 0;
+      }
+
+      .sidebar a {
+        width: auto;
+        padding: 10px 15px;
+        font-size: 16px;
+      }
+
+      .main-content {
+        margin-left: 0;
+        padding: 20px;
+      }
+
+      .about-section {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .about-text {
+        padding-right: 0;
+      }
+    }
+
+    <!-- 庆祝板块 -->
+    @keyframes confettiFall {
+        0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
+        100% { transform: translateY(600px) rotate(360deg); opacity: 0; }
+    }
+    .confetti {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background-color: #f8c8dc;
+        animation: confettiFall 2s ease-out forwards;
+        border-radius: 50%;
+    }
+    #celebration-section {
+        background: linear-gradient(135deg, #ffe4e1, #f8c8dc, #e6ccff);
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 0 20px rgba(255, 192, 203, 0.5);
+    }
+    @keyframes sparkle {
+        0% { box-shadow: 0 0 5px #ff69b4; }
+        50% { box-shadow: 0 0 15px #ffb6c1; }
+        100% { box-shadow: 0 0 5px #ff69b4; }
+    }
+    #celebration-section {
+        animation: sparkle 2s infinite;
+        border: 3px solid #ffb6c1;
+    }
+    button {
+        animation: sparkle 1.5s infinite;
+        border: 2px solid #d63384;
+    }
+
+
+
+
+  </style>
+</head>
+<body>
+
+  <!-- 导航栏 -->
+  <div class="sidebar">
+    <a href="#about-me">关于我</a>
+    <a href="#learning-progress">学习进度</a>
+    <a href="#contact-me">联系我</a>
+  </div>
+
+  <!-- 主体内容 -->
+  <div class="main-content" id="mainContent">
+
+    <header>
+      <h1>姚嘉妮的网页练习</h1>
+    </header>
+
+    <!-- 关于我 -->
+    <section id="about-me" class="about-section">
+      <div class="about-text">
+        <h2>关于我</h2>
+        <p>你好，我是姚嘉妮。</p>
+        <p>我的出生年月是：2003年2月</p>
+        <p>我的民族是：土家族</p>
+        <p>我的本科是：兰州大学 资源环境学院 自然地理与资源环境专业</p>
+        <p>我目前就读：武汉大学 资源与环境科学学院 自然地理专业</p>
+        <p>我的联系电话是：13975124337</p>
+        <p>我的邮箱是：13975124337@163.com</p>
+        <p>我目前正在学习网页开发，希望通过这个网页展示我的学习成果！</p>
+        <p>我喜欢结构清晰、风格独特的页面设计，也正在挑战卡位系统模块的开发任务。</p>
+      </div>
+      <div class="about-photo">
+        <img src="https://tc-new.z.wiki/autoupload/f/U5ZhtQ7hMFU_DVcRMq9JXLiu7RgtZR1Td1FLnIAPww2yl5f0KlZfm6UsKj-HyTuv/20250917/ypG6/1863X1279/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_2025-08-11_180749_511.jpg/webp" alt="嘉妮的照片">
+      </div>
+    </section>
+    <!-- 庆祝板块 -->
+    <section id="celebration-section" style="text-align:center; margin-top:50px;">
+        <h2>🎉 嘉妮上任纪念模块</h2>
+        <button onclick="celebrate()" style="padding:10px 20px; font-size:18px;">点我庆祝嘉妮上任！</button>
+        <p id="celebrationMessage" style="margin-top:20px; font-size:20px; color:#d63384;"></p>
+        <div id="confettiContainer"></div>
+    </section>
+
+  
+    <!-- 学习进度 -->
+    <section id="learning-progress">
+      <h2>学习进度</h2>
+      <table>
+        <tr><th>日期</th><th>学习内容</th><th>完成情况</th><th>备注</th></tr>
+        <tr><td>第一天</td><td>HTML结构</td><td>✅</td><td></td></tr>
+        <tr><td>第二天</td><td>CSS样式</td><td>✅</td><td></td></tr>
+        <tr><td>第三天</td><td>JavaScript交互</td><td>待完成</td><td></td></tr>
+      </table>
+    </section>
+
+    <!-- 留言板模块 -->
+<section id="message-board" style="max-width:600px; margin:50px auto; padding:30px; background:linear-gradient(135deg, #fff0f5, #e6ccff); border-radius:15px; box-shadow:0 0 20px rgba(255,192,203,0.5); border:3px solid #ffb6c1; animation:sparkle 2s infinite;">
+  <h2 id="animated-title" style="text-align:center; color:#d63384; font-size:24px; white-space:nowrap; overflow:hidden; border-right:2px solid #d63384;"></h2>
+
+  <form id="contact-form" action="https://formsubmit.co/2572504329@qq.com" method="POST" style="display:flex; flex-direction:column; gap:15px; margin-top:20px;">
+    <!-- 防止垃圾邮件 -->
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_subject" value="来自嘉妮网页的留言！">
+    <input type="hidden" name="_next" value="javascript:thankYouPopup();">
+
+    <input type="text" name="name" placeholder="你的名字" required style="padding:10px; border-radius:5px; border:1px solid #ccc;">
+    <textarea name="message" placeholder="想对嘉妮说的话..." required rows="5" style="padding:10px; border-radius:5px; border:1px solid #ccc;"></textarea>
+    <button type="submit" style="padding:10px; background-color:#d63384; color:white; border:none; border-radius:5px; font-size:16px; animation:sparkle 1.5s infinite;">发送留言</button>
+  </form>
+</section>
+
+    
+    <!-- 自己的日记 -->
+     <section id="contact-me">
+  <h2>今天有感到幸福吗？</h2>
+  <p>一定要无数次救自己于水火之中，奔向幸福！！！有什么开心的不开心的都留言吧！</p>
+  <form id="contactForm">
+    <input type="text" id="name" name="name" placeholder="你的名字" required>
+    <textarea id="message" name="message" rows="4" placeholder="留言内容" required></textarea>
+    <button type="submit">发送</button>
+  </form>
+
+  <h3 style="margin-top:30px;">留言展示</h3>
+  <ul id="messageList" style="list-style: none; padding: 0;"></ul>
+</section>
+
+
+    <footer>
+      <p>© 2025 姚嘉妮版权所有</p>
+    </footer>
+
+  </div>
+
+<script>
+  const form = document.getElementById('contactForm');
+  const messageList = document.getElementById('messageList');
+
+  // 加载已有留言
+  window.addEventListener('load', () => {
+    const savedMessages = JSON.parse(localStorage.getItem('messages')) || [];
+    savedMessages.forEach(msg => {
+      displayMessage(msg.name, msg.message, msg.time);
+    });
+  });
+
+  // 表单提交事件
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const name = document.getElementById('name').value.trim();
+    const message = document.getElementById('message').value.trim();
+
+    if (name && message) {
+      const now = new Date();
+      const timeString = now.getFullYear() + '-' +
+                         String(now.getMonth() + 1).padStart(2, '0') + '-' +
+                         String(now.getDate()).padStart(2, '0') + ' ' +
+                         String(now.getHours()).padStart(2, '0') + ':' +
+                         String(now.getMinutes()).padStart(2, '0');
+
+      // 显示留言
+      displayMessage(name, message, timeString);
+
+      // 保存到 localStorage
+      const savedMessages = JSON.parse(localStorage.getItem('messages')) || [];
+      savedMessages.push({ name, message, time: timeString });
+      localStorage.setItem('messages', JSON.stringify(savedMessages));
+
+      // 清空表单
+      document.getElementById('name').value = '';
+      document.getElementById('message').value = '';
+    }
+  });
+
+  // 显示留言函数
+  function displayMessage(name, message, time) {
+    const li = document.createElement('li');
+    li.style.padding = '10px';
+    li.style.marginBottom = '10px';
+    li.style.backgroundColor = '#ffe4e1';
+    li.style.borderRadius = '8px';
+    li.innerHTML = `<strong>${name}</strong>：${message} <span style="float:right; color:#888;">${time}</span>`;
+    messageList.appendChild(li);
+  }
+</script>
+
+<script>
+
+// 庆祝模块
+  function celebrate() {
+    const message = document.getElementById('celebrationMessage');
+    message.textContent = "嘉妮今天闪闪发光！你值得拥有所有掌声！";
+    for (let i = 0; i < 30; i++) {
+        const confetti = document.createElement('div');
+        confetti.classList.add('confetti');
+        confetti.style.left = Math.random() * window.innerWidth + 'px';
+        confetti.style.backgroundColor = getRandomColor();
+        document.getElementById('confettiContainer').appendChild(confetti);
+        setTimeout(() => confetti.remove(), 2000);
+    }
+}
+
+// 留言模块
+function getRandomColor() {
+  const colors = ['#f8c8dc', '#ffb6c1', '#ffe4e1', '#f9a1a1', '#d63384'];
+  return colors[Math.floor(Math.random() * colors.length)];
+}
+
+// 动画标题打字效果
+document.addEventListener("DOMContentLoaded", function() {
+  const title = document.getElementById("animated-title");
+  title.textContent = "💌 嘉妮的留言板：欢迎给我写信！";
+});
+
+// 感谢留言弹窗
+function thankYouPopup() {
+  alert("感谢你的留言！嘉妮已经收到你的心意啦 💖");
+}
+
+
+</script>
+
+
+</body>
+</html>
